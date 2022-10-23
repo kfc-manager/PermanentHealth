@@ -1,0 +1,4 @@
+name: PermanentHealth
+version: '${project.version}'
+main: kalle.com.permanenthealth.PermanentHealth
+api-version: 1.13
