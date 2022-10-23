@@ -12,3 +12,4 @@ When the plugin gets loaded for the first time on the server, the file **Permane
 
 The item "Heart Gain" will be added to the game. It is an apple and can be consumed, which means that it only can be used when the player is hungry. After a player consumed the item he will gain one permanent heart. By default the item can be crafted like in this image:
 
+![alt text](https://github.com/kfc-manager/PermanentHealth/blob/main/2022-10-23_18.37.39.png?raw=true)
