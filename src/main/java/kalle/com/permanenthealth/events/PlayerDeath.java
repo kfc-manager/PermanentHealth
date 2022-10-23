@@ -18,7 +18,8 @@ public class PlayerDeath implements Listener {
     public void onDeath(PlayerDeathEvent event) {
         Player player = event.getEntity();
         double maxHealth = player.getMaxHealth();
-        if (maxHealth <= 2.0) {
+        if (maxHealth - PermanentHealth.healthLoss <= 2.0) {
+            player.setMaxHealth(2.0);
             return;
         }
         player.setMaxHealth(maxHealth-PermanentHealth.healthLoss);

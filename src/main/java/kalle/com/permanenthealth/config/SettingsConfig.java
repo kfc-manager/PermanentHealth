@@ -23,10 +23,6 @@ public class SettingsConfig {
     }
 
     public void setup() {
-        // Plugin startup logic
-        if (!plugin.getDataFolder().exists()) {
-            plugin.getDataFolder().mkdir();
-        }
         file = new File(plugin.getDataFolder(), "settings.yml");
         if (!file.exists()) {
             try {
@@ -101,7 +97,11 @@ public class SettingsConfig {
     public static double getHealthLoss() {
         try {
             String entry = config.getString("Health Loss");
-            return Double.parseDouble(entry);
+            double health = Double.parseDouble(entry);
+            if (health < 0.0) {
+                throw new IllegalArgumentException();
+            }
+            return health;
         } catch (NullPointerException | IllegalArgumentException e) {
             loadDefaultHealthLoss();
             plugin.getServer().getConsoleSender().sendMessage(ChatColor.RED + "[PermanentHealth] CONFIG ERROR: could not load health loss of settings.yml properly! (health loss restored to default)");
@@ -112,7 +112,11 @@ public class SettingsConfig {
     public static double getInitialHealth() {
         try {
             String entry = config.getString("Initial Health");
-            return Double.parseDouble(entry);
+            double health = Double.parseDouble(entry);
+            if (health < 1.0) {
+                throw new IllegalArgumentException();
+            }
+            return health;
         } catch (NullPointerException | IllegalArgumentException e) {
             loadDefaultInitialHealth();
             plugin.getServer().getConsoleSender().sendMessage(ChatColor.RED + "[PermanentHealth] CONFIG ERROR: could not load initial health of settings.yml properly! (initial health restored to default)");

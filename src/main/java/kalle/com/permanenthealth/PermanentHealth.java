@@ -1,7 +1,9 @@
 package kalle.com.permanenthealth;
 
+import kalle.com.permanenthealth.config.PlayerDataConfig;
 import kalle.com.permanenthealth.config.SettingsConfig;
 import kalle.com.permanenthealth.events.PlayerDeath;
+import kalle.com.permanenthealth.events.PlayerJoin;
 import kalle.com.permanenthealth.items.HeartGain;
 import org.bukkit.ChatColor;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -13,6 +15,12 @@ public final class PermanentHealth extends JavaPlugin {
 
     @Override
     public void onEnable() {
+        // Plugin startup logic
+        if (!getDataFolder().exists()) {
+            getDataFolder().mkdir();
+        }
+        PlayerDataConfig playerdata = new PlayerDataConfig(this);
+        playerdata.setup();
         SettingsConfig settings = new SettingsConfig(this);
         settings.setup();
         healthLoss = SettingsConfig.getHealthLoss();
@@ -29,6 +37,7 @@ public final class PermanentHealth extends JavaPlugin {
 
     private void registerEvents() {
         getServer().getPluginManager().registerEvents(new PlayerDeath(this), this);
+        getServer().getPluginManager().registerEvents(new PlayerJoin(), this);
         getServer().getPluginManager().registerEvents(new HeartGain(this), this);
     }
 
